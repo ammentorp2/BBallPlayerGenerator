@@ -5,7 +5,5 @@ public enum Position {
     SG,
     SF,
     PF,
-    C,
-    G,
-    F
+    C
 }
