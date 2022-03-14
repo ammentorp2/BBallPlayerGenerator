@@ -12,8 +12,7 @@ public class Player {
     private String firstName;
     private String lastName;
 
-    private int heightFeet;
-    private int heightInches;
+    private int heightInches; /* height in inches */
     private int weight;
 
     private Position primaryPosition;
@@ -117,24 +116,6 @@ public class Player {
      */
     public void setHeightInches(int heightInches) {
         this.heightInches = heightInches;
-    }
-
-    /**
-     * Gets height im feet.
-     *
-     * @return the height in feet
-     */
-    public int getHeightFeet() {
-        return heightFeet;
-    }
-
-    /**
-     * Sets height in feet.
-     *
-     * @param heightFeet the height im feet
-     */
-    public void setHeightFeet(int heightFeet) {
-        this.heightFeet = heightFeet;
     }
 
     /**

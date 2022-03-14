@@ -21,6 +21,9 @@ public class PlayerCreatorService {
         Player thePlayer = new Player();
         //create a name
 
+        //give player an age
+        // TODO make service to make age range prospect/young/prime/veteran/old
+
         //create a position (and potentially a second position)
         Position primaryPosition = PositionService.generatePosition();
         thePlayer.setPrimaryPosition(primaryPosition);
@@ -30,8 +33,11 @@ public class PlayerCreatorService {
 
 
         //for said position come up with a height and weight (influenced by POS and secondary POS)
+        int playerHeightInInches = HeightService.generateHeight(primaryPosition,secondaryPosition);
+        thePlayer.setHeightInches(playerHeightInInches);
 
-        //generate a playstyle (based on position(s))
+        //generate a playstyle (based on position)
+        
 
         return thePlayer;
     }
