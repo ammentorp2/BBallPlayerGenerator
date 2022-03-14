@@ -19,7 +19,7 @@ public class Player {
     private Position primaryPosition;
     private Position secondaryPosition;
 
-    //TODO create enum for position archetypes for playstyle
+    //TODO create enum/string for position archetypes for playstyle
 
     private int age;
 
