@@ -36,7 +36,7 @@ public class PlayerCreatorService {
         int playerHeightInInches = HeightService.generateHeight(primaryPosition,secondaryPosition);
         thePlayer.setHeightInches(playerHeightInInches);
 
-        //generate a playstyle (based on position)
+        //generate a playstyle (based on primary position)
         
 
         return thePlayer;
