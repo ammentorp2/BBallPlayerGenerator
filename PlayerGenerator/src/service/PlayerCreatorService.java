@@ -19,10 +19,11 @@ public class PlayerCreatorService {
     public static Player createPlayer(){
         //purely random
         Player thePlayer = new Player();
-        //TODO create a name
+        //TODO create a name (maven/gradle dependencies)
 
         //give player an age
-
+        int age = AgeService.generateAge();
+        thePlayer.setAge(age);
 
         //create a position (and potentially a second position)
         Position primaryPosition = PositionService.generatePosition();
@@ -32,17 +33,17 @@ public class PlayerCreatorService {
         thePlayer.setSecondaryPosition(secondaryPosition);
 
 
-        //for said position come up with a height and weight (influenced by POS and secondary POS)
+        //TODO for said position come up with a height (influenced by POS and secondary POS)
         int playerHeightInInches = HeightService.generateHeight(primaryPosition,secondaryPosition);
         thePlayer.setHeightInches(playerHeightInInches);
 
-        //TODO generate a playstyle (based on primary position)
+        //TODO give player a weight (influenced by positions)
+        int weight = WeightService.generateWeight(primaryPosition,secondaryPosition);
+
         String playstyle = PlaystyleService.generatePlaystyle(primaryPosition);
         thePlayer.setPlaystyle(playstyle);
 
         return thePlayer;
     }
-
-    // TODO make service to make age range prospect/young/prime/veteran/old (user controlled age range)
 
 }

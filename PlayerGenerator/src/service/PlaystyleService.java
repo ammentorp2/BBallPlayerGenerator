@@ -9,6 +9,11 @@ import java.util.Random;
  */
 public class PlaystyleService {
 
+    /**
+     * playstyles gotten from
+     * https://dotesports.com/streaming/news/all-nba-2k21-archetypes-explained
+     */
+
     final static String [] pgPlaystyles = {"Two-Way Slashing Playmaker","Three-level Scorer",
                                     "Midrange Specialist","Offensive Threat",
                                     "Pure Playmaker","Scoring Machine",
@@ -34,6 +39,11 @@ public class PlaystyleService {
                                         "Post Playmaker","Post-Scoring Stretch Five",
                                         "Sharpshooting Defender","Slashing Rim Protector"};
 
+    /**
+     * Generates a playstyle for a player
+     * @param primaryPosition the primary position the player plays
+     * @return a random playstyle
+     */
     public static String generatePlaystyle(Position primaryPosition) {
         Random rand = new Random(System.currentTimeMillis() % 500);
         int posNum = rand.nextInt(8); /* 0-7 */

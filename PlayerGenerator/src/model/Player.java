@@ -195,11 +195,11 @@ public class Player {
      */
     public String toString(){
         String res = firstName + " " + lastName + "\n" + this.getFormattedHeight() + ","
-                    + weight + "lbs |" + primaryPosition;
+                    + weight + "lbs | " + primaryPosition;
         if(secondaryPosition != null)
             res += "/" + secondaryPosition;
 
-        res += "\n" + age + " years old " + playstyle;
+        res += "\n" + age + " year old " + playstyle;
         return res;
     }
 
