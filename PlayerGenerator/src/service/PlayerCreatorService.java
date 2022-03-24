@@ -32,9 +32,7 @@ public class PlayerCreatorService {
         Position secondaryPosition = PositionService.generateSecondPosition(primaryPosition);
         thePlayer.setSecondaryPosition(secondaryPosition);
 
-
-        //TODO for said position come up with a height (influenced by POS and secondary POS)
-        int playerHeightInInches = HeightService.generateHeight(primaryPosition,secondaryPosition);
+        int playerHeightInInches = HeightService.generateHeight(primaryPosition);
         thePlayer.setHeightInches(playerHeightInInches);
 
         //TODO give player a weight (influenced by positions)
