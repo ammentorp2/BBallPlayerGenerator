@@ -19,10 +19,10 @@ public class PlayerCreatorService {
     public static Player createPlayer(){
         //purely random
         Player thePlayer = new Player();
-        //create a name
+        //TODO create a name
 
         //give player an age
-        // TODO make service to make age range prospect/young/prime/veteran/old
+
 
         //create a position (and potentially a second position)
         Position primaryPosition = PositionService.generatePosition();
@@ -36,9 +36,13 @@ public class PlayerCreatorService {
         int playerHeightInInches = HeightService.generateHeight(primaryPosition,secondaryPosition);
         thePlayer.setHeightInches(playerHeightInInches);
 
-        //generate a playstyle (based on primary position)
-        
+        //TODO generate a playstyle (based on primary position)
+        String playstyle = PlaystyleService.generatePlaystyle(primaryPosition);
+        thePlayer.setPlaystyle(playstyle);
 
         return thePlayer;
     }
+
+    // TODO make service to make age range prospect/young/prime/veteran/old (user controlled age range)
+
 }

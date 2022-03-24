@@ -18,7 +18,7 @@ public class PositionService {
      * @return generated position
      */
     public static Position generatePosition(){
-        Random rand = new Random(System.currentTimeMillis());
+        Random rand = new Random(System.currentTimeMillis() % 500);
 
         int posNum = rand.nextInt(6) + 1;
 
@@ -27,8 +27,7 @@ public class PositionService {
             case 2 -> Position.SG;
             case 3 -> Position.SF;
             case 4 -> Position.PF;
-            case 5 -> Position.C;
-            default -> throw new RuntimeException("Error with creating position");
+            default -> Position.C;
         };
     }
 
