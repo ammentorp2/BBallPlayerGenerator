@@ -8,7 +8,6 @@ package service;
 import model.Position;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -112,7 +111,6 @@ public class HeightService {
      * @return height (in inches) of player
      */
     public static int generateHeight(Position primaryPosition) {
-        //TODO
         if (primaryPosition == null)
             throw new RuntimeException("Primary position can't be null");
 

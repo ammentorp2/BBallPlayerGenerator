@@ -35,8 +35,8 @@ public class PlayerCreatorService {
         int playerHeightInInches = HeightService.generateHeight(primaryPosition);
         thePlayer.setHeightInches(playerHeightInInches);
 
-        //TODO give player a weight (influenced by positions)
         int weight = WeightService.generateWeight(primaryPosition,secondaryPosition);
+        thePlayer.setWeight(weight);
 
         String playstyle = PlaystyleService.generatePlaystyle(primaryPosition);
         thePlayer.setPlaystyle(playstyle);
