@@ -12,16 +12,15 @@ public class Player {
     private String firstName;
     private String lastName;
 
-    private int heightFeet;
-    private int heightInches;
+    private int heightInches; /* height in inches */
     private int weight;
 
     private Position primaryPosition;
     private Position secondaryPosition;
 
-    //TODO create enum for position archetypes for playstyle
+    private String playstyle;
 
-    private int age;
+    private int age; /* age in years */
 
     /**
      * Initilizes player object
@@ -120,24 +119,6 @@ public class Player {
     }
 
     /**
-     * Gets height im feet.
-     *
-     * @return the height in feet
-     */
-    public int getHeightFeet() {
-        return heightFeet;
-    }
-
-    /**
-     * Sets height in feet.
-     *
-     * @param heightFeet the height im feet
-     */
-    public void setHeightFeet(int heightFeet) {
-        this.heightFeet = heightFeet;
-    }
-
-    /**
      * Gets first name.
      *
      * @return the first name
@@ -149,10 +130,28 @@ public class Player {
     /**
      * Sets first name.
      *
-     * @param firstName the first name
+     * @param firstName player's first name
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    /**
+     * Gets playstyle.
+     *
+     * @return the playstyle of player
+     */
+    public String getPlaystyle() {
+        return playstyle;
+    }
+
+    /**
+     * Sets playstyle.
+     *
+     * @param playstyle the playstyle of the player
+     */
+    public void setPlaystyle(String playstyle) {
+        this.playstyle = playstyle;
     }
 
     /**
@@ -165,6 +164,23 @@ public class Player {
     }
 
     /**
+     * Gets formatted height.
+     *
+     * @return the formatted height
+     */
+    public String getFormattedHeight() {
+        int feet = 0;
+        int heightInchesCopy = heightInches;
+
+        while(heightInchesCopy >= 12){
+            feet++;
+            heightInchesCopy -= 12;
+        }
+
+        return feet + "-" + heightInchesCopy;
+    }
+
+    /**
      * Sets last name.
      *
      * @param lastName the last name
@@ -173,7 +189,19 @@ public class Player {
         this.lastName = lastName;
     }
 
+    /**
+     * toString
+     * @return formatted output of object
+     */
     public String toString(){
-        return "";
+        String res = firstName + " " + lastName + "\n" + this.getFormattedHeight() + ","
+                    + weight + "lbs | " + primaryPosition;
+        if(secondaryPosition != null)
+            res += "/" + secondaryPosition;
+
+        res += "\n" + age + " year old " + playstyle;
+        return res;
     }
+
+
 }
