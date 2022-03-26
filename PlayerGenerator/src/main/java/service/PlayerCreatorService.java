@@ -13,47 +13,121 @@ import model.Position;
  * Service to create a player
  */
 public class PlayerCreatorService {
+
     /**
      * Creates a purely random player
      * @return player
      */
     public static Player createPlayer(){
-        //purely random
-        Player thePlayer = new Player();
+        // generate random name
+        Faker faker = new Faker();
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+
+
+        //give player an age
+        int age = AgeService.generateAge();
+
+
+        //create a position (and potentially a second position)
+        Position primaryPosition = PositionService.generatePosition();
+
+        Position secondaryPosition = PositionService.generateSecondPosition(primaryPosition);
+
+        return createPlayer(new Player.PlayerBuilder().appendFirstName(firstName)
+                    .appendLastName(lastName).appendAge(age)
+                    .appendPrimaryPosition(primaryPosition)
+                    .appendSecondaryPosition(secondaryPosition));
+    }
+
+    /**
+     * Create a player by name
+     * @param firstName player's first name
+     * @param lastName player's last name
+     * @return the created player
+     */
+    public static Player createPlayerByName(String firstName,String lastName){
+        //give player an age
+        int age = AgeService.generateAge();
+
+        //create a position (and potentially a second position)
+        Position primaryPosition = PositionService.generatePosition();
+
+        Position secondaryPosition = PositionService.generateSecondPosition(primaryPosition);
+
+        return createPlayer(new Player.PlayerBuilder().appendFirstName(firstName)
+                .appendLastName(lastName).appendAge(age)
+                .appendPrimaryPosition(primaryPosition)
+                .appendSecondaryPosition(secondaryPosition));
+    }
+
+    /**
+     * Create a player by position
+     * @param primaryPosition player's primary position
+     * @return created player
+     */
+    public static Player createPlayerByPosition(Position primaryPosition){
+        // generate random name
+        Faker faker = new Faker();
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+
+
+        //give player an age
+        int age = AgeService.generateAge();
+
+        return createPlayer(new Player.PlayerBuilder().appendFirstName(firstName)
+                .appendLastName(lastName).appendAge(age)
+                .appendPrimaryPosition(primaryPosition));
+    }
+
+    public static Player createPlayerByPosition(Position primaryPosition,Position secondaryPosition){
+
+        if(primaryPosition.compareTo(secondaryPosition) == 0 || Math.abs(primaryPosition.compareTo(secondaryPosition)) > 1){
+            throw new RuntimeException("Invalid second position");
+        }
 
         // generate random name
         Faker faker = new Faker();
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
 
-        // set name
-        thePlayer.setFirstName(firstName);
-        thePlayer.setLastName(lastName);
 
         //give player an age
         int age = AgeService.generateAge();
-        thePlayer.setAge(age);
 
-        //create a position (and potentially a second position)
-        Position primaryPosition = PositionService.generatePosition();
-        thePlayer.setPrimaryPosition(primaryPosition);
+        return createPlayer(new Player.PlayerBuilder().appendFirstName(firstName)
+                .appendLastName(lastName).appendAge(age)
+                .appendPrimaryPosition(primaryPosition)
+                .appendSecondaryPosition(secondaryPosition));
 
-        Position secondaryPosition = PositionService.generateSecondPosition(primaryPosition);
-        thePlayer.setSecondaryPosition(secondaryPosition);
+    }
 
+    //player by age
+
+    //player by name and position(s)
+
+    //player by name and age
+
+    //player by positions(s) and age
+
+    //player by name, positions(s) and age
+
+    private static Player createPlayer(Player.PlayerBuilder builder) {
         // generate height
-        int playerHeightInInches = HeightService.generateHeight(primaryPosition);
-        thePlayer.setHeightInches(playerHeightInInches);
+        int playerHeightInInches = HeightService.generateHeight(builder.getPrimaryPosition());
+        builder.appendHeight(playerHeightInInches);
 
         // generate weight
-        int weight = WeightService.generateWeight(primaryPosition,secondaryPosition);
-        thePlayer.setWeight(weight);
+        int weight = WeightService.generateWeight(builder.getPrimaryPosition(),builder.getSecondaryPosition());
+        builder.appendWeight(weight);
 
         // generate playstyle
-        String playstyle = PlaystyleService.generatePlaystyle(primaryPosition);
-        thePlayer.setPlaystyle(playstyle);
+        String playstyle = PlaystyleService.generatePlaystyle(builder.getPrimaryPosition());
+        builder.appendPlaystyle(playstyle);
 
-        return thePlayer;
+        return builder.build();
+
     }
 
 }
