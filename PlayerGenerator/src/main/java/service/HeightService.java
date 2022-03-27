@@ -85,22 +85,21 @@ public class HeightService {
             add(new Pair(81,14.6));
             add(new Pair(82,23.8));
             add(new Pair(83,29.5));
-            add(new Pair(84,15));
-            add(new Pair(85,4));
+            add(new Pair(84,15.0));
+            add(new Pair(85,4.0));
             add(new Pair(86,0.3));
             add(new Pair(87,0.1));
             add(new Pair(90,0.1));
         }
     };
 
-    final static double TOTAL_WEIGHT = 100.0;
-
-    private static int getHeightBasedOnPosition(ArrayList<Pair<Integer,Double>> heightDist){
+    private static int getHeightBasedOnPosition(ArrayList<Pair<Integer,Double>> heightDist, double totalWeight){
         int index = 0;
-        Random rand = new Random(System.currentTimeMillis() % 37);
-        for (double r = rand.nextDouble() * TOTAL_WEIGHT; index < heightDist.size() - 1; ++index) {
+        Random rand = new Random(System.currentTimeMillis());
+        double r = rand.nextDouble() * totalWeight;
+        while( r > 0) {
+            index = rand.nextInt(heightDist.size());
             r -= heightDist.get(index).getR();
-            if (r <= 0.0) break;
         }
         return heightDist.get(index).getL();
     }
@@ -114,21 +113,37 @@ public class HeightService {
         if (primaryPosition == null)
             throw new RuntimeException("Primary position can't be null");
 
+        double totalWeight = 0.0;
 
         if(primaryPosition == Position.PG){
-            return getHeightBasedOnPosition(pgHeightDist);
+            for(var i : pgHeightDist){
+                totalWeight += i.getR();
+            }
+            return getHeightBasedOnPosition(pgHeightDist,totalWeight);
         }
         else if(primaryPosition == Position.SG){
-            return getHeightBasedOnPosition(sgHeightDist);
+            for(var i : sgHeightDist){
+                totalWeight += i.getR();
+            }
+            return getHeightBasedOnPosition(sgHeightDist,totalWeight);
         }
         else if(primaryPosition == Position.SF){
-            return getHeightBasedOnPosition(sfHeightDist);
+            for(var i : sfHeightDist){
+                totalWeight += i.getR();
+            }
+            return getHeightBasedOnPosition(sfHeightDist,totalWeight);
         }
         else if(primaryPosition == Position.PF){
-            return getHeightBasedOnPosition(pfHeightDist);
+            for(var i : pfHeightDist){
+                totalWeight += i.getR();
+            }
+            return getHeightBasedOnPosition(pfHeightDist,totalWeight);
         }
         else if(primaryPosition == Position.C){
-            return getHeightBasedOnPosition(centerHeightDist);
+            for(var i : centerHeightDist){
+                totalWeight += i.getR();
+            }
+            return getHeightBasedOnPosition(centerHeightDist,totalWeight);
         }
         return 0;
 

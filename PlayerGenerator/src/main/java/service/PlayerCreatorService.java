@@ -252,11 +252,13 @@ public class PlayerCreatorService {
                 .appendSecondaryPosition(secondaryPosition));
     }
 
+    /**
+     * Create player
+     * @param builder builder for player object
+     * @return created player
+     */
     private static Player createPlayer(Player.PlayerBuilder builder) {
         // generate height
-        // TODO sg/pg is always 6'5 (???)
-        // TODO C is always 6'11
-        // TODO fix random service
         int playerHeightInInches = HeightService.generateHeight(builder.getPrimaryPosition());
         builder.appendHeight(playerHeightInInches);
 
