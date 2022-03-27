@@ -83,7 +83,8 @@ public class PlayerCreatorService {
 
     public static Player createPlayerByPosition(Position primaryPosition,Position secondaryPosition){
 
-        if(primaryPosition.compareTo(secondaryPosition) == 0 || Math.abs(primaryPosition.compareTo(secondaryPosition)) > 1){
+        if(primaryPosition.compareTo(secondaryPosition) == 0
+                || Math.abs(primaryPosition.compareTo(secondaryPosition)) > 1){
             throw new RuntimeException("Invalid second position");
         }
 
@@ -103,7 +104,27 @@ public class PlayerCreatorService {
 
     }
 
-    //player by age
+    /**
+     * Create player by age
+     * @param age age of player
+     * @return created player
+     */
+    public static Player createPlayerByAge(int age){
+        // generate random name
+        Faker faker = new Faker();
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+
+        //create a position (and potentially a second position)
+        Position primaryPosition = PositionService.generatePosition();
+
+        Position secondaryPosition = PositionService.generateSecondPosition(primaryPosition);
+
+        return createPlayer(new Player.PlayerBuilder().appendFirstName(firstName)
+                .appendLastName(lastName).appendAge(age)
+                .appendPrimaryPosition(primaryPosition)
+                .appendSecondaryPosition(secondaryPosition));
+    }
 
     //player by name and position(s)
 
@@ -115,6 +136,7 @@ public class PlayerCreatorService {
 
     private static Player createPlayer(Player.PlayerBuilder builder) {
         // generate height
+        // TODO sg/pg is always 6'5 (???)
         int playerHeightInInches = HeightService.generateHeight(builder.getPrimaryPosition());
         builder.appendHeight(playerHeightInInches);
 

@@ -11,5 +11,6 @@ public class LocalRunner {
         System.out.println(PlayerCreatorService.createPlayerByName("John","Snow"));
         System.out.println(PlayerCreatorService.createPlayerByPosition(Position.C));
         System.out.println(PlayerCreatorService.createPlayerByPosition(Position.SG,Position.PG));
+        System.out.println(PlayerCreatorService.createPlayerByAge(35));
     }
 }
