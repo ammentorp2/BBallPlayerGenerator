@@ -211,7 +211,12 @@ public class Player {
 
 
         public Player build(){
-            //TODO add validation(?)
+            if(secondaryPosition != null){
+                if(primaryPosition.compareTo(secondaryPosition) == 0
+                        || Math.abs(primaryPosition.compareTo(secondaryPosition)) > 1){
+                    throw new RuntimeException("Invalid second position");
+                }
+            }
             return new Player(this);
         }
 
