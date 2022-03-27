@@ -9,23 +9,31 @@ package model;
  */
 public class Player {
 
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
 
-    private int heightInches; /* height in inches */
-    private int weight;
+    private final int heightInches; /* height in inches */
+    private final int weight;
 
-    private Position primaryPosition;
-    private Position secondaryPosition;
+    private final Position primaryPosition;
+    private final Position secondaryPosition;
 
-    private String playstyle;
+    private final String playstyle;
 
-    private int age; /* age in years */
+    private final int age; /* age in years */
 
     /**
      * Initilizes player object
      */
-    public Player() {
+    private Player(PlayerBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.heightInches = builder.heightInches;
+        this.weight = builder.weight;
+        this.primaryPosition = builder.primaryPosition;
+        this.secondaryPosition = builder.secondaryPosition;
+        this.playstyle = builder.playstyle;
+        this.age = builder.age;
     }
 
     /**
@@ -37,14 +45,6 @@ public class Player {
         return age;
     }
 
-    /**
-     * Sets age.
-     *
-     * @param age the age
-     */
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     /**
      * Gets secondary position.
@@ -55,14 +55,6 @@ public class Player {
         return secondaryPosition;
     }
 
-    /**
-     * Sets secondary position.
-     *
-     * @param secondaryPosition the secondary position
-     */
-    public void setSecondaryPosition(Position secondaryPosition) {
-        this.secondaryPosition = secondaryPosition;
-    }
 
     /**
      * Gets primary position.
@@ -71,15 +63,6 @@ public class Player {
      */
     public Position getPrimaryPosition() {
         return primaryPosition;
-    }
-
-    /**
-     * Sets primary position.
-     *
-     * @param primaryPosition the primary position
-     */
-    public void setPrimaryPosition(Position primaryPosition) {
-        this.primaryPosition = primaryPosition;
     }
 
     /**
@@ -92,30 +75,12 @@ public class Player {
     }
 
     /**
-     * Sets weight.
-     *
-     * @param weight the weight
-     */
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    /**
      * Gets height inches.
      *
      * @return the height inches
      */
     public int getHeightInches() {
         return heightInches;
-    }
-
-    /**
-     * Sets height (inches).
-     *
-     * @param heightInches the height (inches)
-     */
-    public void setHeightInches(int heightInches) {
-        this.heightInches = heightInches;
     }
 
     /**
@@ -128,30 +93,12 @@ public class Player {
     }
 
     /**
-     * Sets first name.
-     *
-     * @param firstName player's first name
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
      * Gets playstyle.
      *
      * @return the playstyle of player
      */
     public String getPlaystyle() {
         return playstyle;
-    }
-
-    /**
-     * Sets playstyle.
-     *
-     * @param playstyle the playstyle of the player
-     */
-    public void setPlaystyle(String playstyle) {
-        this.playstyle = playstyle;
     }
 
     /**
@@ -181,18 +128,10 @@ public class Player {
     }
 
     /**
-     * Sets last name.
-     *
-     * @param lastName the last name
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
      * toString
      * @return formatted output of object
      */
+    @Override
     public String toString(){
         String res = firstName + " " + lastName + "\n" + this.getFormattedHeight() + ","
                     + weight + "lbs | " + primaryPosition;
@@ -201,6 +140,93 @@ public class Player {
 
         res += "\n" + age + " year old " + playstyle;
         return res;
+    }
+
+    public static class PlayerBuilder{
+        private String firstName;
+        private String lastName;
+
+        private int heightInches; /* height in inches */
+        private  int weight;
+
+        private  Position primaryPosition;
+        private Position secondaryPosition;
+
+        private String playstyle;
+
+        private int age; /* age in years */
+
+        public PlayerBuilder(){}
+
+        public PlayerBuilder(String firstName,String lastName,int heightInches
+                , int weight, Position primaryPosition, Position secondaryPosition
+                ,String playstyle,int age){
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.heightInches = heightInches;
+            this.weight = weight;
+            this.primaryPosition = primaryPosition;
+            this.secondaryPosition = secondaryPosition;
+            this.playstyle = playstyle;
+            this.age = age;
+        }
+
+        public PlayerBuilder appendFirstName(String firstName){
+            this.firstName = firstName;
+            return this;
+        }
+
+        public PlayerBuilder appendLastName(String lastName){
+            this.lastName = lastName;
+            return this;
+        }
+
+        public PlayerBuilder appendHeight(int heightInches){
+            this.heightInches = heightInches;
+            return this;
+        }
+        public PlayerBuilder appendWeight(int weight){
+            this.weight = weight;
+            return this;
+        }
+
+        public PlayerBuilder appendPrimaryPosition(Position primaryPosition){
+            this.primaryPosition = primaryPosition;
+            return this;
+        }
+        public PlayerBuilder appendSecondaryPosition(Position secondaryPosition){
+            this.secondaryPosition = secondaryPosition;
+            return this;
+        }
+
+        public PlayerBuilder appendPlaystyle(String playstyle){
+            this.playstyle = playstyle;
+            return this;
+        }
+
+        public PlayerBuilder appendAge(int age){
+            this.age = age;
+            return this;
+        }
+
+
+        public Player build(){
+            if(secondaryPosition != null){
+                if(primaryPosition.compareTo(secondaryPosition) == 0
+                        || Math.abs(primaryPosition.compareTo(secondaryPosition)) > 1){
+                    throw new RuntimeException("Invalid second position");
+                }
+            }
+            return new Player(this);
+        }
+
+        public Position getPrimaryPosition() {
+            return primaryPosition;
+        }
+
+        public Position getSecondaryPosition() {
+            return secondaryPosition;
+        }
     }
 
 
