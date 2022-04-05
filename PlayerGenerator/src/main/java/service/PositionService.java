@@ -31,6 +31,11 @@ public class PositionService {
         };
     }
 
+    /**
+     * Generate player's second position
+     * @param primaryPosition player's primary position
+     * @return player's second position or null
+     */
     public static Position generateSecondPosition(Position primaryPosition){
         //for now "flip a coin" to see if they get a second POS
         Random rand = new Random(System.currentTimeMillis());
