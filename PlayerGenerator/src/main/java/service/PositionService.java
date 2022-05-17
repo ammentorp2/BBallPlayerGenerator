@@ -18,9 +18,9 @@ public class PositionService {
      * @return generated position
      */
     public static Position generatePosition(){
-        Random rand = new Random(System.currentTimeMillis() % 500);
+        Random rand = new Random(System.currentTimeMillis());
 
-        int posNum = rand.nextInt(6) + 1;
+        int posNum = rand.nextInt(5) + 1;
 
         return switch (posNum) {
             case 1 -> Position.PG;
